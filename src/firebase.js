@@ -1,4 +1,6 @@
-import firebase from 'firebase'
+// import  firebase from 'firebase/app'
+import { initializeApp } from "firebase/app"
+import {getFirestore, collection,doc, setDoc} from "firebase/firestore/lite"
 import { ref, onUnmounted } from 'vue'
 
 const config = {
@@ -11,39 +13,46 @@ const config = {
         measurementId: "G-K3LWRJCLFJ"
 }
 
-const firebaseApp = firebase.initializeApp(config)
-
-const db = firebaseApp.firestore()
-const usersCollection = db.collection('users')
+const firebaseApp = initializeApp(config)
 
 
-//===Functions for each of the CRUD operations
+
+const db = getFirestore(firebaseApp)
+const usersCollection = collection(db,'users')
+
+
+ //===Functions for each of the CRUD operations
 
 //createUser fn to add users to the users collection
 export const createUser = user => {
-    return usersCollection.add(user)
+    const db = getFirestore();
+    const usersCollection = doc(db, `users/${user.email}`);
+//     const usersCollection = doc(db, 'users/user')
+    console.log(user)
+    return setDoc(usersCollection, user);
 }
 
+// 
 //getUser fn, accepts  user's  id and return the documentation if it exists
 export const getUser = async id => {
     const user = await usersCollection.doc(id).get()
     return user.exists ? user.data() : null
 }
 
-//update fn
+// //update fn
 export const updateUser = (id, user) => {
     return usersCollection.doc(id).update(user)
 }
 
-//delete fn
+// //delete fn
 export const deleteUser = id => {
     return usersCollection.doc(id).delete()
 }
 
-//create a composition hook that will return the ref to an array of users from  the database
-//to  do it we''ll
-//add aa  listener on the usersCollection s that it updates whenever changes in   the usersColl  are  detected
-//creating this  listener will return a cleanup fn that will call on unMounted
+// //create a composition hook that will return the ref to an array of users from  the database
+// //to  do it we''ll
+// //add aa  listener on the usersCollection s that it updates whenever changes in   the usersColl  are  detected
+// //creating this  listener will return a cleanup fn that will call on unMounted
 export const useLoadUsers = () => {
     const users = ref([])
     const close = usersCollection.onSnapshot(snapshot => {
