@@ -45,5 +45,10 @@ export const deleteUser = id => {
 //add aa  listener on the usersCollection s that it updates whenever changes in   the usersColl  are  detected
 //creating this  listener will return a cleanup fn that will call on unMounted
 export const useLoadUsers = () => {
-    
+    const users = ref([])
+    const close = usersCollection.onSnapshot(snapshot => {
+        users.value = snapshot.docs.map(doc => ({  id: doc.id, ...doc.data() }))
+    })
+    onUnmounted(close)
+    return users
 }
