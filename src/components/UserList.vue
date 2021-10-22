@@ -34,6 +34,7 @@
 import {useLoadUsers, deleteUser} from "@/firebase"
 
 export default {
+    
     setup(){
         const users = useLoadUsers()
         return { users, deleteUser}

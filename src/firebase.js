@@ -49,7 +49,10 @@ export const updateUser = (id, user) => {
 export const deleteUser = id => {
     const docRef = doc(db, `/users/${id}`);
     ///  add  an alert, then page refresh after an alert
-    alert('Are you sure')
+    const r = alert(`Are you sure you want to delete?`)
+    // if (r == true) {
+    //     this.$router.go()
+    // }
     return deleteDoc(docRef)
 }
 
