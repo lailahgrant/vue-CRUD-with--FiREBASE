@@ -2,6 +2,8 @@
 import { initializeApp } from "firebase/app"
 import {getFirestore, collection, doc, setDoc, getDocs, getDoc, deleteDoc, query} from "firebase/firestore/lite"
 import { ref, onUnmounted } from 'vue'
+import "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 
 const config = {
         apiKey: "AIzaSyADgGKw5HIZjayWSY67nZXjMKX6xhvs4U8",
@@ -67,13 +69,67 @@ export const useLoadUsers = () => {
         users.value = snapshot.docs.map(doc => ({  id: doc.id, ...doc.data() }))
     })
 
-
-
-
-
     // const close = usersCollection.onSnapshot(snapshot => {
     //     users.value = snapshot.docs.map(doc => ({  id: doc.id, ...doc.data() }))
     // })
     onUnmounted(close)
     return users
 }
+
+
+// //* AUTHENTICTION */
+export const user = ref(null);
+
+const authent = getAuth();
+
+authent.onAuthStateChanged((u) => {
+    user.value = u;
+});
+
+//  /** logout */
+export async function logout() {
+    await authent.signOut();
+}
+
+//  ///** Login**/
+export async function useLogin(){
+    const email = ref("");
+    const pasword = ref("");
+
+    async function login(){
+        const resp = await authent.signInWithEmailAndPassword(
+            email.value,
+            password.value
+        );
+
+        if(!resp.user) throw Error("User not Found !!!");
+
+        user.value = resp.user;
+
+    }
+
+    return {
+        email, 
+        password,
+        login
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
