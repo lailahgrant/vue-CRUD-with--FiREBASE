@@ -11,7 +11,7 @@
             </div>  <br>
             <button type="submit" class="btn btn-success">Register</button> <br>
             <div class="form-group">
-                <i class="fa fa-google"></i><a href="#" class="btn" @click="google">Sign in with Google</a>
+                <a href="#" class="btn" @click="google"><i class="fas fa-google"></i>Sign in with Google</a>
             </div>
         </form>
     </div>
