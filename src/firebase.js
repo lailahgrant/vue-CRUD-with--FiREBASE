@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app"
 import {getFirestore, collection, doc, setDoc, getDocs, getDoc, deleteDoc, query} from "firebase/firestore/lite"
 import { ref, onUnmounted } from 'vue'
 import "firebase/auth"
-import { getAuth, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signOut,GoogleAuthProvider } from "firebase/auth";
 
 const config = {
         apiKey: "AIzaSyADgGKw5HIZjayWSY67nZXjMKX6xhvs4U8",
@@ -91,10 +91,16 @@ export async function logout() {
     await authent.signOut();
 }
 
+// * Signin with Google* */
+export async function google() {
+    await authent.signInWithPopup(new GoogleAuthProvider());
+}
+
+
 //  ///** Login**/
 export async function useLogin(){
     const email = ref("");
-    const pasword = ref("");
+    const password = ref("");
 
     async function login(){
         const resp = await authent.signInWithEmailAndPassword(
