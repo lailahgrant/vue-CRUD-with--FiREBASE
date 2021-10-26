@@ -24,7 +24,7 @@ import router from "@/router"
 
 export default defineComponent({
     props: {
-        loginReturnUrl : { type: String, default: "/login" }
+        loginReturnUrl : { type: String, default: "/dashboard" }
     },
     setup(props){
         watch(
