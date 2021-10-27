@@ -78,12 +78,17 @@ export const useLoadUsers = () => {
 
 
 // //* AUTHENTICTION */
+
+// will be used with the route guard
+export const initialised = ref(false)
+
 export const user = ref(null);
 
 const authent = getAuth();
 
 authent.onAuthStateChanged((u) => {
     user.value = u;
+    initialised.value = true
 });
 
 //  /** logout */
