@@ -24,14 +24,20 @@
 
 <script>
 import { createUser } from '@/firebase'
+import  { useRouter } from 'vue-router'
 import { reactive } from 'vue'
 
 export default{
     setup(){
-        const form = reactive({fname: '', lname: '', email: '', pass:'' })
 
+        const router = useRouter()
+
+        const form = reactive({fname: '', lname: '', email: '', pass:'' })
+        
         const onSubmit = async () => {
             await createUser({ ...form })
+
+            router.push('/login')
             form.fname = ''
             form.lname = ''
             form.email = ''
