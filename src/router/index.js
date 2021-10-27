@@ -52,32 +52,32 @@ const routes = [
 //use  a "beforeEach" route  guard
 //   /** Need to watch this value in the  route guard  **/
 
-router.beforeEach((to, _, next) => {
+// router.beforeEach((to, _, next) => {
   
-  if (initialised.value) {
-    if (!to.matched.some(record => record.meta.public) && !user.value) {
-    return next("/login");
-    }
+//   if (initialised.value) {
+//     if (!to.matched.some(record => record.meta.public) && !user.value) {
+//     return next("/login");
+//     }
     
-    next();
+//     next();
 
-  } else {
-    watch(
-      () => initialised.value,
-      (newValue) => {
-        if (newValue) {
-          if (!to.matched.some(record => record.meta.public) && !user.value) {
-            return next("/login")
-          }
-          next()
-        }
-      }
-    )
-  }
+//   } else {
+//     watch(
+//       () => initialised.value,
+//       (newValue) => {
+//         if (newValue) {
+//           if (!to.matched.some(record => record.meta.public) && !user.value) {
+//             return next("/login")
+//           }
+//           next()
+//         }
+//       }
+//     )
+//   }
 
   
 
-});
+// });
 
 
 const router = createRouter({

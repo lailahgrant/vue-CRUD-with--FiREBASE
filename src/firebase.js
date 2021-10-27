@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app"
 import {getFirestore, collection, doc, setDoc, getDocs, getDoc, deleteDoc, query} from "firebase/firestore/lite"
 import { ref, onUnmounted } from 'vue'
 import "firebase/auth"
-import { getAuth, signInWithPopup, createUserWithEmailAndPassword, signOut,GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup,signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut,GoogleAuthProvider } from "firebase/auth";
 
 const config = {
         apiKey: "AIzaSyADgGKw5HIZjayWSY67nZXjMKX6xhvs4U8",
@@ -127,16 +127,28 @@ export async function useLogin(){
     const email = ref("");
     const password = ref("");
 
-    async function login(){
-        const resp = await authent.signInWithEmailAndPassword(
-            email.value,
-            password.value
-        );
+    async function login() {
+        //     const resp = await authent.signInWithEmailAndPassword(
+        //         email.value,
+        //         password.value
+        //     );
 
-        if(!resp.user) throw Error("User not Found !!!");
+        //     if(!resp.user) throw Error("User not Found !!!");
 
-        user.value = resp.user;
+        //     user.value = resp.user;
 
+        // }
+
+        signInWithEmailAndPassword(authent, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
     }
 
     return {
