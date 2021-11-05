@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app"
 import {getFirestore, collection, doc, setDoc, getDocs, getDoc, deleteDoc, query} from "firebase/firestore/lite"
 import { ref, onUnmounted } from 'vue'
 import "firebase/auth"
-import { getAuth, signInWithPopup,signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut,GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup,signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut,GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 
 const config = {
         apiKey: "AIzaSyADgGKw5HIZjayWSY67nZXjMKX6xhvs4U8",
@@ -93,33 +93,83 @@ authent.onAuthStateChanged((u) => {
 
 //  /** logout */
 export async function logout() {
-    await authent.signOut();
+    await authent.signOut();                                             
 }
 
 // * Signin with Google* */
-const provider = new GoogleAuthProvider();
-export async function google() {
+// const provider = new GoogleAuthProvider();
+// export async function google() {
+    ///get currently ssiggned-in usser by using currentUseer property
+      // if the user isn''t signed-in, currentUseer is  null
+    //const theUser = authent.currentUser
+    
     // await signInWithPopup(new GoogleAuthProvider());
-    signInWithPopup(authent, provider)
-  .then((result) => {
+   /*  signInWithPopup(authent, provider)
+.then((result) => { */
     // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
+   /*  const token = credential.accessToken;
+    const credential = GoogleAuthProvider.credentialFromResult(result); */
+    
+       /*  signInWithCredential(credential).then((userCrede) => {
+            console.log(userCrede)
+    })
+     */
     // The signed-in user info.
-    const user = result.user;
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
+      /* console.log(result)
+      console.log(`Display name is ${displayName}`) */
 
-}
+      //if (theUser !== null) {
+          //theUser object has basic properties such as display name, email, etc
+            /* const displayName = token.theUser.displayName
+            const email = user.email;
+          const photoURL = user.photoURL
+          console.log(`Display name is ${displayName}`); */
+
+  
+      //}
+
+    // ...
+  ///}).catch((error) => {
+    // Handle Errors here.c
+    /* const errorCode = error.code;
+    const errorMessage = error.message; */
+    // The email of the user's account used.
+    ///const email = error.email;
+    // The AuthCredential type that was used.
+    ///const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  ///});
+//     return {
+//     email,
+//     displayName,
+//     photoURL
+// }
+
+
+//} 
+
+//Signin
+    const provider = new GoogleAuthProvider();
+
+    export async function google() {
+        
+    }
+
+
+/* export async function google() {
+    signInWithPopup(authent, provider).then(async(result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result)
+        const token = credential.accessToken;
+        let crd=  await signInWithCredential(credential)
+        console.log(result)
+        console.log(crd)
+        })
+    } */
+
+
+///show  details
+    //  SHOW USER  DETAILS
+
 
 
 //  ///** Login**/

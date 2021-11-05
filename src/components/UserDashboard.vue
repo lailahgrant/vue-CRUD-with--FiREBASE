@@ -1,23 +1,32 @@
 <template>
     <div style="width:50%; margin: 0 auto;" class="card mt-4">
         <h2>Welcome :- </h2>
-        <table>
-        <tr v-for="{id, fname, lname, email} in users" :key="id">
-        <td>{{ fname }}</td>
-        <td>{{ lname }}</td>
-        <td>{{ email }}</td>
-        <td></td>
+        <table id="showDetail">
+            <thead>
+        <td>Img</td>
+        <td>Name</td>
+        <td>email</td>
+        <td>id</td>
+        </thead>
+
+        <tr>
+        <td><img src="${u.photoURL" alt=""></td>
+        <td>u.displayName</td>
+        <td>${u.email}</td>
+        <td>${u.uid}</td>
         </tr>
+
         </table>
     </div>
 </template>
 
 <script>
-import { useLoadUsers, google, getUser } from '@/firebase'
+import {  } from '@/firebase'
+import { user, google} from "@/firebase" 
 export default {
     setup(){
-        const users = useLoadUsers();
-        return {useLoadUsers, google, getUser}
+        
+        
     }
 }
 </script>

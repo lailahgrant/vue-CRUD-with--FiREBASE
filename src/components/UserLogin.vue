@@ -11,7 +11,7 @@
             </div>  <br>
             <button type="submit" class="btn btn-success">Register</button> <br>
             <div class="form-group"><br>
-                <a href="#" class="btn" @click="google"><i class="fa fa-google"></i>Sign in with Google</a>
+                <a href="#" class="btn" @click="google"><i class="fab fa-google"></i>Sign in with Google</a>
             </div>
         </form>
     </div>
@@ -24,16 +24,23 @@ import router from "@/router"
 
 export default defineComponent({
     props: {
-        loginReturnUrl : { type: String, default: "/" }
-    },
-    setup(props){
+        loginReturnUrl : { type: String, default: "/dashboard" },
+        // pic,
+        // email,
+        // dname
+    },    setup(props){
         watch(
             () => user.value,
+            
             newUser => {
+            
                 if(newUser) {
                     router.push(props.loginReturnUrl)
                 }
-            }
+                // props.pic = `<img src="${user.displayName}" />`
+                // props.dname  = `<h1>${user.displayName}</h1>`
+            },
+
         );
         return {
             ...useLogin(),
